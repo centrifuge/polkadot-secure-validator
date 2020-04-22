@@ -49,7 +49,7 @@ resource "google_compute_instance" "main-pub-{{ name }}" {
   }
 
   service_account {
-    scopes = ["compute-ro"]
+    scopes = ["compute-ro", "monitoring-write", "monitoring", "logging-write"]
   }
 
   metadata = {
