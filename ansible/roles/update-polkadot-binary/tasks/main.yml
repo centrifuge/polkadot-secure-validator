@@ -1,0 +1,29 @@
+- name: download polkadot binary
+  get_url:
+    url: '{{ polkadot_binary_url | quote }}'
+    checksum: '{{ polkadot_binary_checksum | quote }}'
+    dest: /usr/local/bin/centrifuge-chain-new
+    mode: '0700'
+    owner: 'polkadot'
+    group: 'polkadot'
+
+- name: stop polkadot service
+  systemd:
+    name: polkadot.service
+    state: stopped
+  changed_when: false
+
+- name: rename binary
+  shell: |
+    set -o pipefail
+    cp /usr/local/bin/centrifuge-chain-new /usr/local/bin/centrifuge-chain
+    chown polkadot:polkadot /usr/local/bin/centrifuge-chain
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: start polkadot service
+  systemd:
+    name: polkadot.service
+    state: started
+  changed_when: false
