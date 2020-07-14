@@ -16,7 +16,8 @@ PROMETHEUS_ENDPOINT="127.0.0.1:9615"
 BLOCK_INFO_STORE="/tmp/centrifuge_block_info.json"
 # If the block is not changed for 1 minute, then send an alert
 # Make sure the call frequency is less than MAX_DURATION/2 to get rid false positives alerts
-MAX_DURATION=60
+# 10 mins without change
+MAX_DURATION=600
 
 echo "Trigger for Source ${SOURCE}"
 
