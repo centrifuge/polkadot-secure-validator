@@ -23,7 +23,8 @@ ExecStart=/usr/local/bin/{{ project }} \
   {% endif %}
   {% if hostvars[inventory_hostname].telemetryUrl is defined and hostvars[inventory_hostname].telemetryUrl|length %}
   --telemetry-url '{{ hostvars[inventory_hostname].telemetryUrl }} 1' \
-  {% else %}
+  {% endif %}
+  {% if hostvars[inventory_hostname].disable_telemetry|default(true)|bool %}
   --no-telemetry \
   {% endif %}
   {% if hostvars[inventory_hostname].keystorePath is defined and hostvars[inventory_hostname].keystorePath|length %}

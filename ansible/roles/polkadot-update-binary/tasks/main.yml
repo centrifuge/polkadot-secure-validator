@@ -7,6 +7,7 @@
     mode: '0700'
     owner: '{{ project }}'
     group: '{{ project }}'
+  when: "polkadot_binary_pull_enabled|default(true)|bool"
 
 - name: restart polkadot service
   shell: |
